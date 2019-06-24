@@ -300,17 +300,23 @@ class upnp_broadcast_responder(object):
 
             try:
                 self.ssock.bind(('',self.port))
-            except Exception, e:
+            except Exception:
+                import sys
+                e = sys.exc_info()[1]
                 dbg("WARNING: Failed to bind %s:%d: %s" , (self.ip,self.port,e))
                 ok = False
 
             try:
                 self.ssock.setsockopt(socket.IPPROTO_IP,socket.IP_ADD_MEMBERSHIP,self.mreq)
-            except Exception, e:
+            except Exception:
+                import sys
+                e = sys.exc_info()[1]
                 dbg('WARNING: Failed to join multicast group:',e)
                 ok = False
 
-        except Exception, e:
+        except Exception:
+            import sys
+            e = sys.exc_info()[1]
             dbg("Failed to initialize UPnP sockets:",e)
             return False
         if ok:
@@ -343,7 +349,9 @@ class upnp_broadcast_responder(object):
                 return self.ssock.recvfrom(size)
             else:
                 return False, False
-        except Exception, e:
+        except Exception:
+            import sys
+            e = sys.exc_info()[1]
             dbg(e)
             return False, False
 
@@ -374,7 +382,7 @@ class rest_api_handler(object):
 
 
 class generic_test_handler(object):
-    def _init_(self, name):
+    def __init__(self, name):
         self.name = name 
         #put any other init commands here
 
@@ -438,7 +446,6 @@ while True:
         # Allow time for a ctrl-c to stop the process
         p.poll(100)
         time.sleep(0.1)
-    except Exception, e:
-        dbg(e)
+    except Exception:
         break
 
