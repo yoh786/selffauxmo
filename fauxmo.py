@@ -404,8 +404,8 @@ class generic_test_handler(object):
 #]
 
 FAUXMOS = [
-    ['room light', generic_test_handler('Roomlights')],
-    ['side light', generic_test_handler('Table lamp')]
+    ['room light', generic_test_handler()],
+    ['side light', generic_test_handler()]
 ]
 
 #you can comment out the list like above ^^ That way you can have multiple lists for the different types.
