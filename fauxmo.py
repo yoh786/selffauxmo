@@ -374,8 +374,8 @@ class rest_api_handler(object):
 
 
 class generic_test_handler(object):
-    def _init_(self, astring):
-        self.name = astring
+    def __init__(self):
+        self.name = "cheating"
         #put any other init commands here
 
     def on(self):
@@ -385,6 +385,34 @@ class generic_test_handler(object):
     def off(self):
         print(self.name, "  OFF")
         return True
+
+
+class LED_test_handler(object):
+    def __init__(self, sleeptime):
+        self.name = "I'm turning on"
+        #put any other init commands here
+        import RPi.GPIO as GPIO
+        pinList = [3, 4]
+
+        for i in pinList:
+            GPIO.setup(i, GPIO.OUT)
+            GPIO.output(i, GPIO.HIGH)
+
+        self.sleeptime = sleeptime
+
+    def on(self):
+        print(self.name)
+        #GPIO COMMANDS
+        GPIO.output(3, GPIO.LOW)
+        time.sleep(self.sleeptime)
+        GPIO.cleanup()
+        return True
+
+    def off(self):
+        print( " I'm turning  OFF immediately")
+        GPIO.cleanup()
+        return True
+
 # I wonder if you always need a return for a python function. I'm pretty sure this is like Ruby.
 
 
