@@ -374,8 +374,8 @@ class rest_api_handler(object):
 
 
 class generic_test_handler(object):
-    def _init_(self, astring):
-        self.name = astring
+    def _init_(self, name):
+        self.name = name 
         #put any other init commands here
 
     def on(self):
