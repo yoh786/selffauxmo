@@ -407,14 +407,14 @@ class LED_test_handler(object):
         print(self.name)
         #GPIO COMMANDS
         GPIO.output(3, GPIO.LOW)
-        time.sleep(self.sleeptime)
-        GPIO.cleanup()
         return True
 
     def off(self):
         print( " I'm turning  OFF immediately")
         GPIO.cleanup()
         return True
+
+    ## learned a bit about the above code; specifically the Echo is waiting for a response of 'true' that is why it was not recognizing the command was successful. in addition, there is another caveat. the Echo waits only so long for the all celar signal; you gotta add a time wait after the return True (which is technically not possible i suppose) so no timer at the end.
 
 # I wonder if you always need a return for a python function. I'm pretty sure this is like Ruby.
 
