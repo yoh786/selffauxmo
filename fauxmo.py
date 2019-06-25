@@ -36,6 +36,8 @@ import time
 import urllib
 import uuid
 
+import RPi.GPIO as GPIO
+
 
 
 # This XML is the minimum needed to define one of our virtual switches
@@ -391,8 +393,9 @@ class LED_test_handler(object):
     def __init__(self, sleeptime):
         self.name = "I'm turning on"
         #put any other init commands here
-        import RPi.GPIO as GPIO
         pinList = [3, 4]
+
+        GPIO.setmode(GPIO.BCM)
 
         for i in pinList:
             GPIO.setup(i, GPIO.OUT)
@@ -433,7 +436,8 @@ class LED_test_handler(object):
 
 FAUXMOS = [
     ['room light', generic_test_handler()],
-    ['side light', generic_test_handler()]
+    ['side light', LED_test_handler(30)],
+    ['office lights', rest_api_handler('http://192.168.5.4/ha-api?cmd=on&a=office', 'http://192.168.5.4/ha-api?cmd=off&a=office')]
 ]
 
 #you can comment out the list like above ^^ That way you can have multiple lists for the different types.
